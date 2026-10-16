@@ -12,7 +12,7 @@ export function multiply(a, b) {
 
 export function divide(a, b) {
   if (b === 0) {
-    return "Invalid opration";
+    return "Invalid Operation";
   }
   return a / b;
 }
