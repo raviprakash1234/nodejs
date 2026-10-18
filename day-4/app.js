@@ -11,8 +11,8 @@ async function loadUsers() {
 }
 
 async function getUsersById(id) {
-  if (id < 0) {
-    throw new Error(`Not a valid Id`);
+  if (!Number.isInteger(id) || id <= 0) {
+    throw new Error(`ID must be a positive integer`);
   }
   const users = await loadUsers();
   const user = users.find((item) => item.id === id);
@@ -30,8 +30,10 @@ async function main() {
       getUsersById(2),
       getUsersById(3),
     ]);
-    console.log(users.map((user) => user.name));
-    console.log(`Hello, ${user.name}! Email: ${user.email}`);
+    console.log(user.map((user) => user.name));
+    // for (const user of users) {
+    //   console.log(`Hello, ${user.name}! Email: ${user.email}`);
+    // }
   } catch (error) {
     console.error("Could not load user:", error.message);
     process.exitCode = 1;
