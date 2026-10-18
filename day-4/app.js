@@ -31,9 +31,9 @@ async function main() {
       getUsersById(3),
     ]);
     console.log(user.map((user) => user.name));
-    // for (const user of users) {
-    //   console.log(`Hello, ${user.name}! Email: ${user.email}`);
-    // }
+    for (const data of user) {
+      console.log(`Hello, ${data.name}! Email: ${data.email}`);
+    }
   } catch (error) {
     console.error("Could not load user:", error.message);
     process.exitCode = 1;
