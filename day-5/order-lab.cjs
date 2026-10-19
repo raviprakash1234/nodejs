@@ -1,36 +1,22 @@
-// console.log("sync:start");
+console.log("sync:start");
 
-// process.nextTick(() => {
-//   console.log("nextTick");
-// });
+process.nextTick(() => {
+  console.log("nextTick");
+});
 
-// Promise.resolve().then(() => {
-//   console.log("Promise.then");
-//   process.nextTick(() => {
-//     console.log("nextTick inside Promise");
-//   });
-// });
-
-// setTimeout(() => {
-//   console.log("timer");
-// }, 0);
-
-// setImmediate(() => {
-//   console.log("immediate");
-// });
-
-// console.log("sync:end");
-
-console.log("Start");
+Promise.resolve().then(() => {
+  console.log("Promise.then");
+  process.nextTick(() => {
+    console.log("nextTick inside Promise");
+  });
+});
 
 setTimeout(() => {
-  console.log("Timer callback executed");
+  console.log("timer");
 }, 0);
 
-const start = Date.now();
+setImmediate(() => {
+  console.log("immediate");
+});
 
-while (Date.now() - start < 3000) {
-  // Synchronously block JavaScript for ~3 seconds
-}
-
-console.log("Loop finished");
+console.log("sync:end");
