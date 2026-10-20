@@ -16,9 +16,11 @@ events.once("order:created", (order) => {
   console.log(`[audit] First order event captured: #${order.id}`);
 });
 
-events.on("order:created", (order) => {
-  console.log("order:", order.amount);
-});
+events.on("order:created", logOrderAmount);
+
+function logOrderAmount(order) {
+  console.log(`[amount] Order #${order.id}: ₹${order.amount}`);
+}
 
 function createdOrder({ id, customer, amount }) {
   if (!Number.isInteger(id) || id <= 0) {
@@ -48,6 +50,8 @@ console.log(`Mode: ${mode}`);
 
 try {
   createdOrder({ id: 101, customer: "Ravi", amount: 999 });
+  events.off("order:created", logOrderAmount);
+  console.log("Amount listener removed");
   createdOrder({ id: 102, customer: "kajal", amount: 1299 });
   createdOrder({ id: 102, customer: "kajal", amount: -1 }); // for checking error handling
 } catch (error) {
