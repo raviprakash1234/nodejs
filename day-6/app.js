@@ -31,7 +31,7 @@ function createdOrder({ id, customer, amount }) {
     throw new Error("Customer name is required");
   }
 
-  if (typeof amount !== "number" || !Number.isInteger(amount) || amount <= 0) {
+  if (typeof amount !== "number" || !Number.isFinite(amount) || amount <= 0) {
     throw new Error("Amount must be a positive finite number");
   }
 
@@ -53,7 +53,7 @@ try {
   events.off("order:created", logOrderAmount);
   console.log("Amount listener removed");
   createdOrder({ id: 102, customer: "kajal", amount: 1299 });
-  createdOrder({ id: 102, customer: "kajal", amount: -1 }); // for checking error handling
+  //   createdOrder({ id: 102, customer: "kajal", amount: -1 }); // for checking error handling
 } catch (error) {
   console.error("Could not create order:", error.message);
   process.exitCode = 1;
