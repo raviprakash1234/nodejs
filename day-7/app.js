@@ -7,7 +7,7 @@ const PORT = Number(process.env.PORT) || 3000;
 const server = createServer((req, res) => {
   const { method, url } = req;
 
-  res.setHeader("Content-type", "application/json charset=utf-8");
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
   if (method === "GET" && url === "/health") {
     res.statusCode = 200;
     res.end(JSON.stringify({ status: "Ok" }));
@@ -26,7 +26,7 @@ const server = createServer((req, res) => {
   }
 
   res.statusCode = 404;
-  res.end(JSON.stringify({ error: "Route not fount" }));
+  res.end(JSON.stringify({ error: "Route not found" }));
 });
 
 server.on("error", (error) => {
