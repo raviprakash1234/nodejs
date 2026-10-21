@@ -10,18 +10,18 @@ const server = createServer((req, res) => {
   res.setHeader("Content-type", "application/json charset=utf-8");
   if (method === "GET" && url === "/health") {
     res.statusCode = 200;
-    // res.end(JSON.stringify({ status: "Ok" }));
+    res.end(JSON.stringify({ status: "Ok" }));
     return;
   }
-  if ((method === "GET", url === "/about")) {
+  if (method === "GET" && url === "/about") {
     res.statusCode = 200;
     res.end(JSON.stringify({ name: "Ravi's practice API", day: 7 }));
     return;
   }
 
-  if ((method === "GET", url === "/api/time")) {
+  if (method === "GET" && url === "/api/time") {
     res.statusCode = 200;
-    res.end(JSON.stringify({ time: new Date().toLocaleTimeString() }));
+    res.end(JSON.stringify({ time: new Date().toISOString() }));
     return;
   }
 
