@@ -96,11 +96,11 @@ app.patch("/api/users/:id", (req, res) => {
 app.delete("/api/users/:id", (req, res) => {
   const id = Number(req.params.id);
   const exists = users.some((u) => u.id === id);
-  if (!exists) return res.status(404).json({ error: "User not found" });
+  if (!exists) return res.status(400).json({ error: "User not found" });
   users = users.filter((u) => u.id !== id);
   res.status(204).end();
 });
 
 app.listen(PORT, () => {
-  console.log("Server running on http://localhost:3000");
+  console.log(`Server running on http://localhost:${PORT}`);
 });
