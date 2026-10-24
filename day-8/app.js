@@ -18,6 +18,9 @@ app.get("/api/users", (req, res) => {
 
 app.get("/api/users/:id", (req, res) => {
   const id = Number(req.params.id);
+  if (!Number.isInteger(id) || id <= 0) {
+    return res.status(400).json({ error: "Invalid user id." });
+  }
   const user = users.find((u) => u.id === id);
   if (!user) return res.status(404).json({ error: "User not found" });
   res.json(user);
@@ -40,6 +43,9 @@ app.post("/api/users", (req, res) => {
 
 app.put("/api/users/:id", (req, res) => {
   const id = Number(req.params.id);
+  if (!Number.isInteger(id) || id <= 0) {
+    return res.status(400).json({ error: "Invalid user id." });
+  }
   const index = users.findIndex((u) => u.id === id);
   if (index === -1) return res.status(404).json({ error: "User not found" });
 
@@ -95,8 +101,11 @@ app.patch("/api/users/:id", (req, res) => {
 
 app.delete("/api/users/:id", (req, res) => {
   const id = Number(req.params.id);
+  if (!Number.isInteger(id) || id <= 0) {
+    return res.status(400).json({ error: "Invalid user id." });
+  }
   const exists = users.some((u) => u.id === id);
-  if (!exists) return res.status(400).json({ error: "User not found" });
+  if (!exists) return res.status(404).json({ error: "User not found" });
   users = users.filter((u) => u.id !== id);
   res.status(204).end();
 });
