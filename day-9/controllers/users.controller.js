@@ -42,7 +42,7 @@ exports.list = (req, res) => {
 };
 
 exports.getById = (req, res) => {
-  const id = parsedId(req.params.id);
+  const id = parseId(req.params.id);
   const user = findUser(id);
   return res.status(200).json(user);
 };
