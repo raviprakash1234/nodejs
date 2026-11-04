@@ -2,3 +2,6 @@
 /day-3/output/
 node_modules/
 /day-8/node_modules/
+.env
+.env.*
+!.env.example
