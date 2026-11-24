@@ -57,3 +57,44 @@ test("malformed JSON should return 400", async () => {
   expect(response.status).toBe(400);
   expect(response.body.error).toBe("Invalid JSON body.");
 });
+
+test("Helmet security headers are present", async () => {
+  const response = await request(app).get("/api/users");
+
+  expect(response.headers["x-content-type-options"]).toBe("nosniff");
+
+  expect(response.headers["x-frame-options"]).toBe("SAMEORIGIN");
+});
+
+test("CORS returns configured origin", async () => {
+  const response = await request(app)
+    .get("/api/users")
+    .set("Origin", "http://localhost:3000");
+
+  expect(response.headers["access-control-allow-origin"]).toBe(
+    "http://localhost:3000",
+  );
+});
+
+test("CORS does not echo untrusted origin", async () => {
+  const response = await request(app)
+    .get("/api/users")
+    .set("Origin", "https://untrusted.example");
+
+  expect(response.status).toBe(200);
+
+  expect(response.headers["access-control-allow-origin"]).toBe(
+    "http://localhost:3000",
+  );
+
+  expect(response.headers["access-control-allow-origin"]).not.toBe(
+    "https://untrusted.example",
+  );
+});
+
+test("Rate limit headers are present", async () => {
+  const response = await request(app).get("/api/users");
+
+  expect(response.headers["ratelimit"]).toBeDefined();
+  expect(response.headers["ratelimit-policy"]).toBeDefined();
+});
