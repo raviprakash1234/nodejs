@@ -23,9 +23,8 @@ const apiLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-app.use(express.json());
-
 app.use("/api", apiLimiter);
+app.use(express.json());
 app.use("/api/users", usersRouter);
 
 app.use(notFound);
